@@ -43,4 +43,29 @@ export class UsersService {
 
     return await this.usersRepository.save(user);
   }
+
+  async updateUser(
+    id: number,
+    nickname?: string,
+    profileImage?: string,
+    maxHealthPoint?: number,
+    level?: number,
+  ) {
+    const user = await this.usersRepository.findOne({
+      where: {
+        id,
+      },
+    });
+
+    if (!user) {
+      throw new NotFoundException();
+    }
+
+    user.nickname = nickname ? nickname : user.nickname;
+    user.profileImage = profileImage ? profileImage : user.profileImage;
+    user.maxHealthPoint = maxHealthPoint ? maxHealthPoint : user.maxHealthPoint;
+    user.level = level ? level : user.level;
+
+    return await this.usersRepository.save(user);
+  }
 }
