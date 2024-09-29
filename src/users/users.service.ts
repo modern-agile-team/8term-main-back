@@ -13,4 +13,20 @@ export class UsersService {
   async getAllUsers() {
     return await this.usersRepository.find();
   }
+
+  async getUserById(id: number) {
+    return await this.usersRepository.findOne({
+      where: {
+        id,
+      },
+    });
+  }
+
+  async getAllUsers2() {
+    return await this.usersRepository.find();
+  }
+
+  async getAllUsers3() {
+    return await this.usersRepository.find();
+  }
 }
