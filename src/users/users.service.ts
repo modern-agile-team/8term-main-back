@@ -44,7 +44,7 @@ export class UsersService {
     return await this.usersRepository.save(user);
   }
 
-  async updateUser(
+  async updateUserById(
     id: number,
     nickname?: string,
     profileImage?: string,
@@ -67,5 +67,21 @@ export class UsersService {
     user.level = level ? level : user.level;
 
     return await this.usersRepository.save(user);
+  }
+
+  async deleteUserById(id: number) {
+    const user = await this.usersRepository.findOne({
+      where: {
+        id,
+      },
+    });
+
+    if (!user) {
+      throw new NotFoundException();
+    }
+
+    await this.usersRepository.delete(id);
+
+    return;
   }
 }
